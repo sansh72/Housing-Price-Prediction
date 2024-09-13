@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import joblib
 import pandas as pd
+import os
 import numpy as np  # Import numpy to handle conversion
 
 app = Flask(__name__)
@@ -35,4 +36,6 @@ def predict():
     return jsonify({'price': prediction})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))  # Use the port set by the environment, default to 5000
+    app.run(host='0.0.0.0', port=port, debug=True)
+
