@@ -19,7 +19,7 @@ document.getElementById('dataForm').addEventListener('submit', function(event) {
         };
 
         // Send data to Flask API via POST request
-        fetch('http://127.0.0.1:5000/predict', {
+        fetch('https://housing-price-prediction-89ll.onrender.com/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
