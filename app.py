@@ -30,8 +30,12 @@ def predict():
     df_data = pd.DataFrame(input_data, columns=columns)
     df_data["chas"] = pd.to_numeric(df_data["chas"], errors='coerce')
 
-    # Predict using the model
-    result = model.predict(df_data)
+   try:   
+       model = joblib.load('model_filename.pkl')
+   except FileNotFoundError:    
+       return "Model file not found!"
+   except Exception as e:    
+         return f"Error loading model: {e}"
 
     # Convert numpy.float32 to Python float
     prediction = float(result[0]) * 1000
