@@ -1,15 +1,19 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import joblib
 import pandas as pd
 import os
-import numpy as np  # Import numpy to handle conversion
+import numpy as np
 
 app = Flask(__name__)
 CORS(app)
 
 # Load your trained model
 model = joblib.load('model_filename.pkl')
+
+@app.route('/')
+def home():
+    return render_template('index.html')  # Make sure you have 'index.html' in the 'templates' folder
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -30,12 +34,11 @@ def predict():
     result = model.predict(df_data)
 
     # Convert numpy.float32 to Python float
-    prediction = float(result[0])*1000
+    prediction = float(result[0]) * 1000
 
     # Return the prediction as a JSON response
     return jsonify({'price': prediction})
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))  # Use the port set by the environment, default to 5000
-    app.run(host='0.0.0.0', port=port, debug=True)
-
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0
