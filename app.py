@@ -6,7 +6,7 @@ import os
 import numpy as np
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})  # Allow all origins
+CORS(app)
 
 # Load your trained model
 model = joblib.load('model_filename.pkl')
