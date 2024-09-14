@@ -6,14 +6,14 @@ import os
 import numpy as np
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})  # Allow all origins
 
 # Load your trained model
 model = joblib.load('model_filename.pkl')
 
 @app.route('/')
 def home():
-    return render_template('index.html')  # Make sure you have 'index.html' in the 'templates' folder
+    return render_template('index.html')
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -42,3 +42,4 @@ def predict():
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
+
